@@ -1,12 +1,5 @@
-import cvReadyPromise from "@techstark/opencv-js";
+import cv from "@techstark/opencv-js";
 import { Tensor } from "onnxruntime-web/webgpu";
-
-let cv;
-
-// init opencvjs
-(async () => {
-  cv = await cvReadyPromise;
-})();
 
 /**
  * Pre-process input image.

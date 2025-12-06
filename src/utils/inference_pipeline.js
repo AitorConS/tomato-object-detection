@@ -1,12 +1,5 @@
-import cvReadyPromise from "@techstark/opencv-js";
+import cv from "@techstark/opencv-js";
 import { preProcess_img, applyNMS, Colors } from "./img_preprocess";
-
-let cv; 
-
-// init opencvjs
-(async () => {
-  cv = await cvReadyPromise;
-})();
 
 /**
  * Inference pipeline for YOLO model.
@@ -20,6 +13,9 @@ let cv;
  *       - bbox: [x, y, width, height] in original image coordinates
  *       - class_idx: Predicted class index
  *       - score: Confidence score (0-1)
+ *       - keypoints?:  For pose tasks: [{x, y, score}] for each keypoint
+ *       - mask_weights?: For segmentation tasks: mask coefficients
+ *     - mask_imgData?: For segmentation tasks: RGBA overlay image with colored masks
  *   - Second element: Inference time in milliseconds (formatted to 2 decimal places)
  *
  */
@@ -56,7 +52,6 @@ export async function inference_pipeline(
       yRatio
     );
     output0.dispose();
-
     // Apply NMS
     const selected_indices = applyNMS(
       results,
@@ -65,7 +60,10 @@ export async function inference_pipeline(
     );
     const filtered_results = selected_indices.map((i) => results[i]);
 
-    return [filtered_results, (end - start).toFixed(2)];
+    return [
+      { bbox_results: filtered_results },
+      (end - start).toFixed(2),
+    ];
   } catch (error) {
     console.error("Inference error:", error);
     return [[], "0.00"];
@@ -125,3 +123,6 @@ function postProcess_detect(
   }
   return results;
 }
+
+
+

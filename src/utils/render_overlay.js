@@ -2,11 +2,15 @@ import { Colors } from "./img_preprocess.js";
 
 /**
  * Draw bounding boxes in overlay canvas based on task type.
- * @param {Array[Object]} predictions - Detection/pose results
+ * @param {Array[Object]} predictions - Detection results
  * @param {HTMLCanvasElement} overlay_ctx - Show boxes in overlay canvas element
  * @param {Object} currentClasses - Currently selected classes object
  */
-export async function render_overlay(predictions, overlay_ctx, currentClasses) {
+export async function render_overlay(
+  predictions,
+  overlay_ctx,
+  currentClasses
+) {
   // Calculate diagonal length of the canvas
   const diagonalLength = Math.sqrt(
     Math.pow(overlay_ctx.canvas.width, 2) +
@@ -16,8 +20,12 @@ export async function render_overlay(predictions, overlay_ctx, currentClasses) {
 
   if (!predictions || predictions.length === 0) return;
 
-  // Draw predictions
-  draw_object_detection(overlay_ctx, predictions, lineWidth, currentClasses);
+  draw_object_detection(
+    overlay_ctx,
+    predictions,
+    lineWidth,
+    currentClasses
+  );
 }
 
 /**
@@ -26,8 +34,9 @@ export async function render_overlay(predictions, overlay_ctx, currentClasses) {
 function draw_object_detection(ctx, predictions, lineWidth, currentClasses) {
   if (!predictions || predictions.length === 0) return;
   const predictionsByClass = {};
+  const bbox_predictions = predictions.bbox_results;
 
-  predictions.forEach((predict) => {
+  bbox_predictions.forEach((predict) => {
     const classId = predict.class_idx;
     if (!predictionsByClass[classId]) predictionsByClass[classId] = [];
     predictionsByClass[classId].push(predict);
@@ -65,6 +74,8 @@ function draw_object_detection(ctx, predictions, lineWidth, currentClasses) {
     });
   });
 }
+
+
 
 const fontCache = {
   font: "16px Arial",
