@@ -1,18 +1,15 @@
 import React, { memo } from "react";
 
 const SettingsPanel = memo(function SettingsPanel({
-  backendSelectorRef,
-  modelSelectorRef,
   cameraSelectorRef,
   imgszTypeSelectorRef,
   modelConfigRef,
   customClasses,
-  classFileSelectedRef,
   cameras,
   customModels,
-  loadModel,
   activeFeature,
   defaultClasses,
+  loadModel,
 }) {
   return (
     <div
@@ -31,7 +28,6 @@ const SettingsPanel = memo(function SettingsPanel({
             </label>
             <select
               name="device-selector"
-              ref={backendSelectorRef}
               onChange={(e) => {
                 modelConfigRef.current.backend = e.target.value;
                 loadModel();
@@ -50,7 +46,6 @@ const SettingsPanel = memo(function SettingsPanel({
             </label>
             <select
               name="model-selector"
-              ref={modelSelectorRef}
               onChange={(e) => {
                 modelConfigRef.current.model = e.target.value;
                 loadModel();
@@ -60,7 +55,7 @@ const SettingsPanel = memo(function SettingsPanel({
             >
               <option value="yolo11n">YOLO11n (2.6M)</option>
               <option value="yolo11s">YOLO11s (9.4M)</option>
-              <option value="yolo11s">YOLO11m (20.1M)</option>
+              <option value="yolo11m">YOLO11m (20.1M)</option>
               <option value="yolo12n">YOLO12n (2.6M)</option>
               <option value="yolo12s">YOLO12s (9.3M)</option>
               {customModels.map((model, index) => (
@@ -80,7 +75,6 @@ const SettingsPanel = memo(function SettingsPanel({
               Classes:
             </label>
             <select
-              ref={classFileSelectedRef}
               defaultValue="default"
               disabled={activeFeature !== null}
               onChange={(e) => {

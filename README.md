@@ -142,7 +142,6 @@ If your model uses custom classes (not COCO), you need to update the class defin
 You can control how images are pre-processed via the `imgsz_type` setting:
 
 - **Dynamic (Default)**:
-
   - Uses the original image aspect ratio.
   - **Pros**: Best accuracy.
   - **Cons**: Slower on large images; inference time varies.
@@ -152,3 +151,11 @@ You can control how images are pre-processed via the `imgsz_type` setting:
   - Pads image to square and resizes to 640x640.
   - **Pros**: Consistent, faster speed suitable for real-time video.
   - **Cons**: Slight accuracy drop on small objects due to scaling.
+
+## ⚙️ Technical Details: Coordinate System Handling
+
+To ensure consistent bounding boxes across all devices, the following strategy is adopted:
+
+1.  **Inference**: Input is resized to the model's tensor shape (e.g., 640x640).
+2.  **Mapping**: Detected coordinates are projected back to the image's **intrinsic (natural) resolution** rather than the current HTML display size.
+3.  **Rendering**: The overlay `<canvas>` is set to the source image's true resolution. Visual alignment is handled entirely via CSS, eliminating the need for complex resize event listeners and ensuring high-DPI clarity.

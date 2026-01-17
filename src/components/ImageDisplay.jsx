@@ -39,28 +39,30 @@ const ImageDisplay = memo(function ImageDisplay({
           </p>
         </div>
       )}
-      <video
-        className="block max-h-[400px] sm:max-h-[640px] rounded-lg mx-auto object-contain"
-        ref={cameraRef}
-        onLoadedMetadata={onCameraLoad}
-        hidden={activeFeature !== "camera"}
-        autoPlay
-        playsInline
-      />
-      <img
-        id="img"
-        ref={imgRef}
-        src={imgSrc}
-        onLoad={onImageLoad}
-        hidden={activeFeature !== "image"}
-        className="block max-h-[400px] sm:max-h-[640px] rounded-lg mx-auto object-contain"
-        alt="Uploaded"
-      />
-      <canvas
-        ref={overlayRef}
-        hidden={activeFeature === null}
-        className="absolute"
-      ></canvas>
+      <div className="relative">
+        <video
+          className="block max-h-[400px] sm:max-h-[640px] rounded-lg mx-auto object-contain"
+          ref={cameraRef}
+          onLoadedMetadata={onCameraLoad}
+          hidden={activeFeature !== "camera"}
+          autoPlay
+          playsInline
+        />
+        <img
+          id="img"
+          ref={imgRef}
+          src={imgSrc}
+          onLoad={onImageLoad}
+          hidden={activeFeature !== "image"}
+          className="block max-h-[400px] sm:max-h-[640px] rounded-lg mx-auto object-contain"
+          alt="Uploaded"
+        />
+        <canvas
+          ref={overlayRef}
+          hidden={activeFeature === null}
+          className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        ></canvas>
+      </div>
     </div>
   );
 });

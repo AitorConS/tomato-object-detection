@@ -75,8 +75,8 @@ const ResultsTable = memo(function ResultsTable({ details, currentClasses }) {
                         {index}
                       </td>
                       <td className="p-2 sm:p-3 font-medium text-xs sm:text-sm text-left">
-                        {currentClasses[item.class_idx] ||
-                          `Class ${item.class_idx}`}
+                        {currentClasses[item.classIdx] ||
+                          `Class ${item.classIdx}`}
                       </td>
                       <td className="p-2 sm:p-3 text-xs sm:text-sm text-left">
                         <div className="flex items-center">

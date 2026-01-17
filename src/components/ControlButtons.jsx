@@ -32,6 +32,7 @@ const ControlButtons = memo(function ControlButtons({
           className="btn-primary flex items-center justify-center text-sm sm:text-base"
           onClick={() => fileVideoRef.current.click()}
           disabled={activeFeature !== null}
+          hidden={true}
         >
           <svg
             className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"
