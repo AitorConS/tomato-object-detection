@@ -77,7 +77,8 @@ export async function inferencePipeline(imageData, session, modelConfig) {
 function postProcess(rawTensor, scoreThreshold = 0.45, xRatio, yRatio) {
   const NUM_PREDICTIONS = rawTensor.dims[2];
   const NUM_BBOX_ATTRS = 4;
-  const NUM_SCORES = 80;
+  // Calculate number of classes dynamically from tensor dimensions
+  const NUM_SCORES = rawTensor.dims[1] - NUM_BBOX_ATTRS;
 
   const predictions = rawTensor.data;
   const bboxData = predictions.subarray(0, NUM_PREDICTIONS * NUM_BBOX_ATTRS);

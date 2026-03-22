@@ -44,26 +44,9 @@ const SettingsPanel = memo(function SettingsPanel({
             <label className="text-gray-300 mb-1 text-sm font-medium">
               Model:
             </label>
-            <select
-              name="model-selector"
-              onChange={(e) => {
-                modelConfigRef.current.model = e.target.value;
-                loadModel();
-              }}
-              disabled={activeFeature !== null}
-              className="p-2 text-sm rounded-md bg-gray-700 text-white border border-gray-600 focus:border-violet-500 focus:ring-2 focus:ring-violet-500 transition-all"
-            >
-              <option value="yolo11n">YOLO11n (2.6M)</option>
-              <option value="yolo11s">YOLO11s (9.4M)</option>
-              <option value="yolo11m">YOLO11m (20.1M)</option>
-              <option value="yolo12n">YOLO12n (2.6M)</option>
-              <option value="yolo12s">YOLO12s (9.3M)</option>
-              {customModels.map((model, index) => (
-                <option key={index} value={model.url}>
-                  {model.name}
-                </option>
-              ))}
-            </select>
+            <div className="p-2 text-sm rounded-md bg-gray-700 text-white border border-gray-600 text-center">
+              tomatoACLv1
+            </div>
           </div>
         </div>
       </div>
@@ -88,7 +71,7 @@ const SettingsPanel = memo(function SettingsPanel({
               }}
               className="p-2 text-sm rounded-md bg-gray-700 text-white border border-gray-600 focus:border-violet-500 focus:ring-2 focus:ring-violet-500 transition-all"
             >
-              <option value="default">Default Classes (COCO)</option>
+              <option value="default">Tomato Classes</option>
               {customClasses.map((classFile, index) => (
                 <option key={index} value={index}>
                   {classFile.name}

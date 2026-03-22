@@ -16,12 +16,12 @@ import ModelStatus from "./components/ModelStatus";
 import ResultsTable from "./components/ResultsTable";
 
 const DEFAULT_MODEL_CONFIG = {
-  inputShape: [1, 3, 640, 640],
-  overlaySize: [640, 640],
+  inputShape: [1, 3, 960, 960],
+  overlaySize: [960, 960],
   iouThreshold: 0.35,
   scoreThreshold: 0.45,
   backend: "wasm",
-  model: "yolo11n",
+  model: "tomatoACLv1",
   modelPath: "",
   task: "detect",
   imgszType: "dynamic",
@@ -149,9 +149,16 @@ function App() {
       (model) => model.url === modelConfigRef.current.model,
     );
 
-    const modelPath = customModel
-      ? customModel.url
-      : `${window.location.href}/models/${modelConfigRef.current.model}-${modelConfigRef.current.task}.onnx`;
+    let modelPath;
+    if (customModel) {
+      modelPath = customModel.url;
+    } else {
+      // Check if model name already includes .onnx extension
+      const modelName = modelConfigRef.current.model.includes('.onnx') 
+        ? modelConfigRef.current.model 
+        : `${modelConfigRef.current.model}.onnx`;
+      modelPath = `${import.meta.env.BASE_URL}models/${modelName}`;
+    }
 
     modelConfigRef.current.modelPath = modelPath;
 

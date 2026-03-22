@@ -1,10 +1,17 @@
 import { InferenceSession, Tensor } from "onnxruntime-web/webgpu";
 
 export async function modelLoader(modelPath, backend) {
-  const DEFAULT_INPUT_SIZE = [1, 3, 640, 640];
+  const DEFAULT_INPUT_SIZE = [1, 3, 960, 960];
+
+  // Fetch model as ArrayBuffer
+  const response = await fetch(modelPath);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch model: ${response.statusText}`);
+  }
+  const modelBuffer = await response.arrayBuffer();
 
   // load model
-  const yolo_model = await InferenceSession.create(modelPath, {
+  const yolo_model = await InferenceSession.create(modelBuffer, {
     executionProviders: [backend],
   });
 

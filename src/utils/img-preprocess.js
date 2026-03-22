@@ -23,7 +23,7 @@ const preProcessImage = (srcMat, outputSize, imgszType) => {
       [1, 3, div_height, div_width] // [batch, channel, height, width]
     );
   } else if (imgszType === "zeroPad") {
-    const modelDefaultInputSize = [640, 640]; // yolo model default input size
+    const modelDefaultInputSize = [960, 960]; // yolo model default input size
     [preProcessedMat, xRatio, yRatio] = zeroPadInputProcess(
       srcMat,
       modelDefaultInputSize,
@@ -99,8 +99,10 @@ const zeroPadInputProcess = (srcMat, modelSize, outputSize) => {
 const dynamicInputProcess = (mat, outputSize) => {
   cv.cvtColor(mat, mat, cv.COLOR_RGBA2RGB);
 
-  // resize image to divisible by 32
-  const [div_width, div_height] = divStride(32, mat.cols, mat.rows);
+  // Use fixed input size of 960x960 for tomatoACLv1 model
+  const fixedSize = 960;
+  const div_width = fixedSize;
+  const div_height = fixedSize;
 
   // resize, normalize to [0, 1]
   const preProcessedMat = cv.blobFromImage(
