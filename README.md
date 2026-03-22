@@ -42,15 +42,6 @@ To achieve the best performance using **WebGPU**, please ensure the following:
 | 📹 **Video**       |   MP4    | Offline video analysis & content review.  |
 | 📺 **Live Camera** |  Stream  | Real-time monitoring & interactive demos. |
 
-## 📊 Supported Models
-
-| Model        | Input Size | Params | Recommended For       |
-| :----------- | :--------- | :----- | :-------------------- |
-| **YOLO11-N** | 640        | 2.6M   | 📱 Mobile / Real-time |
-| **YOLO11-S** | 640        | 9.4M   | 🖥️ High Accuracy      |
-| **YOLO11-M** | 640        | 20.1M  | 🖥️ Higher Accuracy    |
-| **YOLO12-N** | 640        | 2.6M   | 📱 Mobile / Real-time |
-| **YOLO12-S** | 640        | 9.3M   | 🖥️ High Accuracy      |
 
 _Models are licensed under [AGPL-3.0](./public/models/LICENSE.txt) via [Ultralytics](https://github.com/ultralytics/ultralytics)._
 
@@ -136,21 +127,6 @@ If your model uses custom classes (not COCO), you need to update the class defin
   }
 }
 ```
-
-## ⚙️ Configuration: Image Processing
-
-You can control how images are pre-processed via the `imgsz_type` setting:
-
-- **Dynamic (Default)**:
-  - Uses the original image aspect ratio.
-  - **Pros**: Best accuracy.
-  - **Cons**: Slower on large images; inference time varies.
-  - _Requires model exported with `dynamic=True`._
-
-- **Zero Pad (Square)**:
-  - Pads image to square and resizes to 640x640.
-  - **Pros**: Consistent, faster speed suitable for real-time video.
-  - **Cons**: Slight accuracy drop on small objects due to scaling.
 
 ## ⚙️ Technical Details: Coordinate System Handling
 
