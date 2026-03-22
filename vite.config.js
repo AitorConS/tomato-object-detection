@@ -15,5 +15,5 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["onnxruntime-web"],
   },
-  base: "/yolo-object-detection-onnxruntime-web/",
+  base: "/",
 })
